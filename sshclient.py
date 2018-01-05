@@ -4,13 +4,15 @@ import getopt
 import paramiko
 import subprocess
 
-ip = str(sys.argv[1])
-port = int(sys.argv[2])
-user = str(sys.argv[3])
-passwd = str(sys.argv[4])
+if len(sys.argv) != 5:
+       print "Usage: sshclient.py <ip> <port> <user> <password>"
+       sys.exit(0)
 
 try:
-
+   ip = str(sys.argv[1])
+   port = int(sys.argv[2])
+   user = str(sys.argv[3])
+   passwd = str(sys.argv[4])
    client = paramiko.SSHClient()
    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
    client.connect(ip, port=port, username=user, password=passwd)
@@ -39,8 +41,4 @@ try:
     
 except:
    client.close()
-
-if len(sys.argv) != 5:
-	print "Usage: python sshclient.py <ip> <port> <username> <password>"
-	sys.exit()
 
